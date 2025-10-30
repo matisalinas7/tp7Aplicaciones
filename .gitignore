@@ -1,0 +1,23 @@
+# Archivos y carpetas de logs
+logs/*
+!logs/.gitkeep
+
+# Archivos descargados o temporales
+*.txt
+*.log
+*.tmp
+*.bak
+
+# Archivos de Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Archivos del sistema / IDE
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Archivos de prueba o lectura de FTP
+ftpcliente/readme.txt
