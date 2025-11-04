@@ -1,6 +1,3 @@
-from common.logger_config import setup_logger
-logger = setup_logger("ftp.log")
-
 from ftplib import FTP
 
 ftp = FTP("test.rebex.net")  # servidor público de prueba
@@ -13,10 +10,14 @@ ftp.retrlines("LIST")
 
 filename = "readme.txt"
 with open(filename, "wb") as f:
-    ftp.retrbinary(f"RETR {filename}", f.write)
+    ftp.retrbinary(f"RETR " + filename, f.write)
 
 print(f"Archivo '{filename}' descargado correctamente.")
 ftp.quit()
+
+# Registrar descarga
+with open("ftp_log.txt", "a", encoding="utf-8") as f:
+    f.write(f"Archivo descargado: {filename}\n")
 
 ## 👉 Protocolo: FTP
 ## 👉 Demostración: listar y descargar un archivo de un servidor público.

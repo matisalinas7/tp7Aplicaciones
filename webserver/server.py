@@ -1,10 +1,3 @@
-# webserver/server.py
-
-from common.logger_config import setup_logger
-logger = setup_logger("webserver.log")
-
-logger.info("Servidor Web iniciado.")
-
 from http.server import SimpleHTTPRequestHandler, HTTPServer
 import os
 
@@ -15,9 +8,13 @@ os.chdir(DIRECTORIO)
 
 with HTTPServer(("", PORT), SimpleHTTPRequestHandler) as httpd:
     print(f"Servidor Web activo en http://localhost:{PORT}")
-    httpd.serve_forever()
+    # Registro simple de inicio del servidor
+    with open("webserver_log.txt", "a", encoding="utf-8") as f:
+        f.write(f"Servidor iniciado en puerto {PORT}\n")
 
-
-## Crea una carpeta webserver/www con un index.html para probar.
-## 👉 Protocolo: HTTP
-## 👉 Demostración: abrir localhost:8080 en el navegador.
+    try:
+        httpd.serve_forever()
+    except KeyboardInterrupt:
+        print("Servidor detenido manualmente.")
+        with open("webserver_log.txt", "a", encoding="utf-8") as f:
+            f.write("Servidor detenido manualmente.\n")
